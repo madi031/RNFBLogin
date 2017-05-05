@@ -1,10 +1,8 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
 import { LoginManager } from 'react-native-fbsdk';
-
-import { RNLoggedIn } from './RNLoggedIn';
 
 class RNFBLogin extends Component {
 	renderLoggedIn() {
