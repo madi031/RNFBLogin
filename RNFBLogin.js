@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { LoginButton } from 'react-native-fbsdk';
+import { AccessToken, LoginButton } from 'react-native-fbsdk';
 
 class RNFBLogin extends Component {
 	render() {
@@ -16,7 +16,9 @@ class RNFBLogin extends Component {
 							} else if (result.isCancelled) {
 								alert('Login was Cancelled!!');
 							} else {
-								alert('Login Success!!');
+								AccessToken.getCurrentAccessToken().then(
+									data => {alert(data.accessToken.toString())}
+								)
 							}
 						}
 					}
