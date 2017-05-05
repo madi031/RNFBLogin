@@ -1,30 +1,34 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { AccessToken, LoginButton } from 'react-native-fbsdk';
+import { Button, StyleSheet, Text, View } from 'react-native';
+import { LoginManager } from 'react-native-fbsdk';
+
+import { RNLoggedIn } from './RNLoggedIn';
 
 class RNFBLogin extends Component {
+	renderLoggedIn() {
+		LoginManager.logInWithReadPermissions(['public_profile']).then(
+		  function(result) {
+		    if (result.isCancelled) {
+		      alert('Login cancelled');
+		    } else {
+		      alert('Login success with permissions: '
+		        +result.grantedPermissions.toString());
+		    }
+		  },
+		  function(error) {
+		    alert('Login fail with error: ' + error);
+		  }
+		);
+	}
+
 	render() {
 		return (
 			<View style={styles.container}>
-				<LoginButton
-					onLoginFinished={
-						(error, result) => {
-							if (error) {
-								alert('Something went wrong!!');
-							} else if (result.isCancelled) {
-								alert('Login was Cancelled!!');
-							} else {
-								AccessToken.getCurrentAccessToken().then(
-									data => {alert(data.accessToken.toString())}
-								)
-							}
-						}
-					}
-					onLogoutFinished={
-						() => alert('Sad, you left!!')
-					}
+				<Button 
+					title='Facebook Login'
+					onPress={this.renderLoggedIn}
 				/>
 			</View>	
 		);
